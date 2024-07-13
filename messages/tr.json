@@ -1,0 +1,14 @@
+{
+   "navbar": {
+      "logo": "Kelime Öğren"
+   },
+   "locale-switcher": {
+      "lang": "Dil",
+      "tr": "Türkçe",
+      "en": "İngilizce",
+      "de": "Almanca"
+   },
+   "HomePage": {
+      "title": "Merhaba Dünya!"
+   }
+}

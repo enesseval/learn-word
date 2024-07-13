@@ -1,0 +1,14 @@
+{
+   "navbar": {
+      "logo": "Wörter Lernen"
+   },
+   "locale-switcher": {
+      "lang": "Sprache",
+      "tr": "Türkisch",
+      "en": "Englisch",
+      "de": "Deutsch"
+   },
+   "HomePage": {
+      "title": "Merhaba Dünya!"
+   }
+}

@@ -1,0 +1,14 @@
+{
+   "navbar": {
+      "logo": "Learn Word"
+   },
+   "locale-switcher": {
+      "lang": "Language",
+      "tr": "Turkish",
+      "en": "English",
+      "de": "German"
+   },
+   "HomePage": {
+      "title": "Merhaba Dünya!"
+   }
+}
