@@ -5,6 +5,7 @@ import { getLocale, getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +29,7 @@ export default async function RootLayout({
             <body className={inter.className}>
                <NextIntlClientProvider messages={messages}>
                   <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+                     <Navbar />
                      {children}
                   </ThemeProvider>
                </NextIntlClientProvider>

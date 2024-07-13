@@ -1,9 +1,9 @@
-import { UserButton } from "@clerk/nextjs";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import React from "react";
 import ThemeSwitcher from "./ThemeSwitcher";
 import LocaleSwitcher from "./LocaleSwitcher";
+import { UserButton } from "@clerk/nextjs";
 
 function Navbar() {
    const t = useTranslations("navbar");
