@@ -8,6 +8,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 const FormSchema = z.object({
    mainLang: z.string({
@@ -20,17 +22,32 @@ const FormSchema = z.object({
 
 function User() {
    const t = useTranslations("user");
+   const router = useRouter();
    const { user } = useUser();
+   const { toast } = useToast();
    const form = useForm<z.infer<typeof FormSchema>>({
       resolver: zodResolver(FormSchema),
    });
 
    async function onSubmit(data: z.infer<typeof FormSchema>) {
-      user?.update({
-         unsafeMetadata: {
-            lang: data,
-         },
-      });
+      if (data.mainLang !== data.learnLang) {
+         try {
+            await user?.update({
+               unsafeMetadata: {
+                  lang: data,
+               },
+            });
+            router.push("/");
+         } catch (error) {
+            console.log("Error: ", error);
+         }
+      } else {
+         toast({
+            variant: "destructive",
+            title: "Hata",
+            description: "Anadil ve öğrenilecek dil aynı olamaz.",
+         });
+      }
    }
 
    return (
