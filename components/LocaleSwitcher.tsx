@@ -17,20 +17,16 @@ function LocaleSwitcher() {
    const handleLocaleChange = (value: string) => {
       const locale = value as Locale;
       startTransition(() => setUserLocale(locale));
-      // Locale değişikliğini uygulamak için gerekli işlemleri burada yapın.
-      // Örneğin, `next-intl` kullanıyorsanız, `setLocale` fonksiyonunu burada çağırabilirsiniz.
    };
 
    return (
       <DropdownMenu>
          <DropdownMenuTrigger asChild>
-            <Button variant="secondary" className="focus-visible:ring-0">
+            <Button variant="outline" size={"icon"} className="focus-visible:ring-0">
                <GrLanguage className="w-4 h-4" />
             </Button>
          </DropdownMenuTrigger>
          <DropdownMenuContent className="w-24 md:w-56">
-            <DropdownMenuLabel>{t("lang")}</DropdownMenuLabel>
-            <DropdownMenuSeparator />
             <DropdownMenuCheckboxItem onCheckedChange={() => handleLocaleChange("tr")} checked={locale === "tr"}>
                <span className="hidden md:block">{t("tr")}</span>
                <Flag className="rounded ml-3" size={25} country="TR" />

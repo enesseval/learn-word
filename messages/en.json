@@ -8,6 +8,15 @@
       "en": "English",
       "de": "German"
    },
+   "profile": {
+      "title": "Please fill out the form below to use the word learning application.",
+      "selectMainLang": "Please select your main language",
+      "selectLearnLang": "Please select the language you want to learn",
+      "saveButton": "Save Selections"
+   },
+   "error": {
+      "error": "An unexpected error occurred"
+   },
    "HomePage": {
       "title": "Merhaba Dünya!"
    }

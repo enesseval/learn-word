@@ -1,5 +1,6 @@
 "use client";
 
+import Navbar from "@/components/Navbar";
 import { useUser } from "@clerk/nextjs";
 import { useTranslations } from "next-intl";
 import { redirect } from "next/navigation";
@@ -10,8 +11,14 @@ export default function Home() {
    const { user } = useUser();
 
    useEffect(() => {
-      if (user && !user.unsafeMetadata?.lang) redirect("/user");
+      console.log(user);
+      if (user && !user.unsafeMetadata?.lang) redirect("/profile");
    }, [user]);
 
-   return <div className="flex flex-col min-h-screen max-h-screen min-w-full bg-background">a</div>;
+   return (
+      <div>
+         <Navbar />
+         <div className="flex flex-col min-h-screen max-h-screen min-w-full bg-background">dwadwa</div>
+      </div>
+   );
 }

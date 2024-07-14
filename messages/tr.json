@@ -8,7 +8,15 @@
       "en": "İngilizce",
       "de": "Almanca"
    },
-   "user": {},
+   "profile": {
+      "title": "Kelime öğrenme uygulamasını kullanmak için aşağıdaki formu doldurunuz.",
+      "selectMainLang": "Lütfen ana dilinizi seçiniz",
+      "selectLearnLang": "Lütfen öğrenmek istediğiniz dili seçiniz.",
+      "saveButton": "Seçimleri Kaydet"
+   },
+   "error": {
+      "error": "Beklenmeyen bir hata oluştu"
+   },
    "HomePage": {
       "title": "Merhaba Dünya!"
    }

@@ -26,12 +26,11 @@ export default async function RootLayout({
 
    return (
       <ClerkProvider>
-         <html lang={locale}>
+         <html lang={locale} suppressHydrationWarning={true}>
             <body className={inter.className}>
                <NextIntlClientProvider messages={messages}>
                   <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
                      <Toaster />
-                     <Navbar />
                      {children}
                   </ThemeProvider>
                </NextIntlClientProvider>
