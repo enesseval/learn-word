@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { cn } from "@/lib/utils";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSession, useUser } from "@clerk/nextjs";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -41,7 +41,29 @@ function Profile() {
 
    const form = useForm<z.infer<typeof FormSchema>>({
       resolver: zodResolver(FormSchema),
+      defaultValues: {
+         mainLang: "",
+         learnLang: "",
+      },
    });
+
+   const { reset } = form;
+
+   useEffect(() => {
+      const getData = async () => {
+         const response = await fetch("/api/getLanguages");
+         if (response.ok) {
+            const data = await response.json();
+            reset({
+               mainLang: data.languages.mainLang,
+               learnLang: data.languages.learnLang,
+            });
+         } else {
+            console.error("Failed to fetch languages");
+         }
+      };
+      getData();
+   }, [reset]);
 
    if (!isLoaded || !isSignedIn) return null;
 

@@ -1,8 +1,15 @@
 export {};
 
+export type Languages = {
+   mainLang?: string | undefined;
+   learnLang?: string | undefined;
+};
+
 declare global {
    interface CustomJwtSessionClaims {
-      mainLang?: string;
-      learnLang?: string;
+      languages: {
+         mainLang?: string | undefined;
+         learnLang?: string | undefined;
+      };
    }
 }

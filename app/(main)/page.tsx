@@ -11,8 +11,7 @@ export default function Home() {
    const { user } = useUser();
 
    useEffect(() => {
-      console.log(user);
-      if (user && !user.unsafeMetadata?.lang) redirect("/profile");
+      if (user && !user.unsafeMetadata) redirect("/profile");
    }, [user]);
 
    return (
