@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
-import { useSession, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -16,6 +16,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
+import { useLanguage } from "@/context/LanguagesContext";
 
 const FormSchema = z.object({
    mainLang: z.string({
@@ -33,6 +34,12 @@ function Profile() {
 
    const [selectedMainLang, setSelectedMainLang] = useState("");
 
+   const { languages, updateLanguages } = useLanguage();
+
+   useEffect(() => {
+      if (languages.mainLang) setSelectedMainLang(languages.mainLang);
+   }, [languages.mainLang]);
+
    const langueges = [
       { code: "tr", lang: t("locale-switcher.tr") },
       { code: "en", lang: t("locale-switcher.en") },
@@ -42,28 +49,10 @@ function Profile() {
    const form = useForm<z.infer<typeof FormSchema>>({
       resolver: zodResolver(FormSchema),
       defaultValues: {
-         mainLang: "",
-         learnLang: "",
+         mainLang: languages.mainLang,
+         learnLang: languages.learnLang,
       },
    });
-
-   const { reset } = form;
-
-   useEffect(() => {
-      const getData = async () => {
-         const response = await fetch("/api/getLanguages");
-         if (response.ok) {
-            const data = await response.json();
-            reset({
-               mainLang: data.languages.mainLang,
-               learnLang: data.languages.learnLang,
-            });
-         } else {
-            console.error("Failed to fetch languages");
-         }
-      };
-      getData();
-   }, [reset]);
 
    if (!isLoaded || !isSignedIn) return null;
 
@@ -73,25 +62,8 @@ function Profile() {
    };
 
    async function onSubmit(data: z.infer<typeof FormSchema>) {
-      try {
-         await user?.update({
-            unsafeMetadata: {
-               mainLang: data.mainLang,
-               learnLang: data.learnLang,
-            },
-         });
-         toast({
-            title: "Success",
-            description: `Seçimleriniz başarıyla kaydedildi`,
-         });
-         router.push("/");
-      } catch (error) {
-         toast({
-            title: "Error",
-            variant: "destructive",
-            description: `${t("error.error")}: ${error}`,
-         });
-      }
+      updateLanguages(data);
+      router.push("/");
    }
 
    return (
@@ -138,7 +110,7 @@ function Profile() {
                            name="learnLang"
                            render={({ field, fieldState }) => (
                               <FormItem>
-                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                 <Select disabled={selectedMainLang === ""} onValueChange={field.onChange} defaultValue={field.value}>
                                     <FormControl>
                                        <SelectTrigger className={cn("w-[350px]", fieldState.error && "border-red-500")}>
                                           <SelectValue placeholder={t("profile.selectLearnLang")} />

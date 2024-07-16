@@ -8,5 +8,5 @@ export async function GET() {
 
    const languages = sessionClaims?.languages || {};
 
-   return NextResponse.json({ languages });
+   return NextResponse.json(languages);
 }

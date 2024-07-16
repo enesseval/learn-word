@@ -5,8 +5,9 @@ import { getLocale, getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import Navbar from "@/components/Navbar";
+import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/toaster";
+import { LanguageProvider } from "@/context/LanguagesContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,16 +27,19 @@ export default async function RootLayout({
 
    return (
       <ClerkProvider>
-         <html lang={locale} suppressHydrationWarning={true}>
-            <body className={inter.className}>
-               <NextIntlClientProvider messages={messages}>
-                  <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-                     <Toaster />
-                     {children}
-                  </ThemeProvider>
-               </NextIntlClientProvider>
-            </body>
-         </html>
+         <LanguageProvider>
+            <html lang={locale} suppressHydrationWarning={true}>
+               <body className={inter.className}>
+                  <NextIntlClientProvider messages={messages}>
+                     <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+                        <Toaster />
+                        <NextTopLoader />
+                        {children}
+                     </ThemeProvider>
+                  </NextIntlClientProvider>
+               </body>
+            </html>
+         </LanguageProvider>
       </ClerkProvider>
    );
 }
