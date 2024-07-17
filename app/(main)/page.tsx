@@ -4,8 +4,9 @@ import Navbar from "@/components/Navbar";
 import Buttons from "@/components/Buttons";
 import { redirect } from "next/navigation";
 import Loading from "@/components/Loading";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLanguage } from "@/context/LanguagesContext";
+import Progress from "@/components/Progress";
 
 export default function Home() {
    const { user } = useUser();
@@ -25,6 +26,7 @@ export default function Home() {
          <Navbar />
          <div className="flex flex-col min-h-screen max-h-screen min-w-full bg-background">
             <Buttons />
+            <Progress />
          </div>
       </div>
    );

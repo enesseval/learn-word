@@ -16,6 +16,7 @@ import { addWord } from "@/firebase/actions";
 import { isThisWordCorrect } from "@/googleAi/actions";
 import { useLanguage } from "@/context/LanguagesContext";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { Separator } from "@radix-ui/react-dropdown-menu";
 
 function Buttons() {
    const locale = useLocale();
@@ -49,12 +50,13 @@ function Buttons() {
          setDialogOpen(false);
       } else {
          setAddBtn(true);
+         setLoading(false);
          setBtnValue(result?.toString() || "");
       }
    };
 
    return (
-      <div className="flex flex-row w-full my-2 px-2 gap-2">
+      <div className="flex flex-row w-10/12 md:w-9/12 lg:w-6/12 mx-auto my-2 px-2 gap-2">
          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
                <Button variant={"outline"} className="w-full text-white bg-gradient-to-r from-indigo-400 to-cyan-400 hover:border-white">

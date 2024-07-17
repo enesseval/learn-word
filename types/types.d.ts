@@ -20,10 +20,10 @@ type Sentence = {
 };
 
 export type Word = {
-   learnLangWord: string;
-   mainLangTranslation: string;
-   showCount: number;
-   trueCount: number;
-   addedDate: Date;
-   sentences: Sentence[];
+   learnLangWord?: string;
+   mainLangTranslation?: string;
+   showCount?: number;
+   trueCount?: number;
+   addedDate?: Date;
+   sentences?: Sentence[];
 };
