@@ -3,16 +3,22 @@ import { useUser } from "@clerk/nextjs";
 import Navbar from "@/components/Navbar";
 import Buttons from "@/components/Buttons";
 import { redirect } from "next/navigation";
+import Loading from "@/components/Loading";
+import { useEffect, useState } from "react";
 import { useLanguage } from "@/context/LanguagesContext";
 
 export default function Home() {
    const { user } = useUser();
 
-   const { languages } = useLanguage();
+   const { languages, loading } = useLanguage();
 
-   console.log(languages);
+   useEffect(() => {
+      if (user && (languages.mainLang === "" || languages.learnLang === "")) redirect("/profile");
+   }, [user, languages]);
 
-   if (user && (languages.mainLang === "" || languages.learnLang === "")) redirect("/profile");
+   if (loading) {
+      return <Loading />;
+   }
 
    return (
       <div>

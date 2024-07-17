@@ -1,21 +1,56 @@
 "use client";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+
 import React, { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { HiPencil } from "react-icons/hi";
 import { ImSpinner2 } from "react-icons/im";
 import { FaBookOpen } from "react-icons/fa";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
+
+import { cn } from "@/lib/utils";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Button } from "./ui/button";
+import { useLocale } from "next-intl";
+import { useToast } from "./ui/use-toast";
+import { addWord } from "@/firebase/actions";
 import { isThisWordCorrect } from "@/googleAi/actions";
+import { useLanguage } from "@/context/LanguagesContext";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 
 function Buttons() {
+   const locale = useLocale();
+   const { toast } = useToast();
+   const { languages } = useLanguage();
    const [word, setWord] = useState("");
-   const [dialogOpen, setDialogOpen] = useState(false);
+   const [addBtn, setAddBtn] = useState(false);
+   const [btnValue, setBtnValue] = useState("");
    const [loading, setLoading] = useState(false);
+   const [dialogOpen, setDialogOpen] = useState(false);
 
-   const handleAddWord = async (word: string) => {
-      isThisWordCorrect(word);
+   const addWordHandle = async () => {
+      setLoading(true);
+      const result = await isThisWordCorrect(word, languages, locale);
+      if (result === "true") {
+         const addWordDatabase = await addWord(word, languages, locale);
+         if (addWordDatabase.success) {
+            toast({
+               title: "Success",
+               description: addWordDatabase.message,
+            });
+         } else {
+            toast({
+               title: "Error",
+               description: addWordDatabase.message,
+               variant: "destructive",
+            });
+         }
+         setWord("");
+         setLoading(false);
+         setDialogOpen(false);
+      } else {
+         setAddBtn(true);
+         setBtnValue(result?.toString() || "");
+      }
    };
 
    return (
@@ -31,8 +66,18 @@ function Buttons() {
                <DialogHeader>
                   <DialogTitle>Kelime ekle</DialogTitle>
                </DialogHeader>
-               <Input placeholder="Eklemek istediğiniz kelimeyi yazınız." value={word} onChange={(e) => setWord(e.target.value)} />
-               <Button className="mx-auto mt-2 w-1/2" type="submit" onClick={() => handleAddWord(word)}>
+               <Input
+                  placeholder="Eklemek istediğiniz kelimeyi yazınız."
+                  className="h-8"
+                  value={word}
+                  onChange={(e) => {
+                     setWord(e.target.value);
+                     setAddBtn(false);
+                     setBtnValue("");
+                  }}
+               />
+               <Label className={cn("text-red-500 w-full text-center", btnValue === "" && "hidden")}>{btnValue}</Label>
+               <Button disabled={word === "" || addBtn} className="mx-auto mt-2 w-1/2" type="submit" onClick={() => addWordHandle()}>
                   {loading && <ImSpinner2 className="ml-2 h-4 w-4 animate-spin" />}
                   {!loading && (
                      <>

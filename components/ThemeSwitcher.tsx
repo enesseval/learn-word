@@ -2,13 +2,13 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
-import { DesktopIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
+
 import { Button } from "./ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 function ThemeSwitcher() {
-   const { theme, setTheme } = useTheme();
+   const { setTheme } = useTheme();
    const [mounted, setMounted] = useState(false);
 
    useEffect(() => setMounted(true), []);

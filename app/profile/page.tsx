@@ -2,21 +2,20 @@
 
 import { z } from "zod";
 import { cn } from "@/lib/utils";
-import React, { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import React, { useEffect, useState } from "react";
 
 import Navbar from "@/components/Navbar";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLanguage } from "@/context/LanguagesContext";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { toast } from "@/components/ui/use-toast";
-import { useLanguage } from "@/context/LanguagesContext";
 
 const FormSchema = z.object({
    mainLang: z.string({
@@ -38,7 +37,7 @@ function Profile() {
 
    useEffect(() => {
       if (languages.mainLang) setSelectedMainLang(languages.mainLang);
-   }, [languages.mainLang]);
+   }, [languages.mainLang, languages, router]);
 
    const langueges = [
       { code: "tr", lang: t("locale-switcher.tr") },

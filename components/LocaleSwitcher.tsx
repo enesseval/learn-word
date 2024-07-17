@@ -1,12 +1,14 @@
 "use client";
-import { useLocale, useTranslations } from "next-intl";
-import React, { useTransition } from "react";
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
-import { GrLanguage } from "react-icons/gr";
+
 import Flag from "react-flagkit";
+import { GrLanguage } from "react-icons/gr";
+import React, { useTransition } from "react";
+import { useLocale, useTranslations } from "next-intl";
+
 import { Locale } from "@/config";
+import { Button } from "./ui/button";
 import { setUserLocale } from "@/services/locale";
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 function LocaleSwitcher() {
    const t = useTranslations("locale-switcher");
