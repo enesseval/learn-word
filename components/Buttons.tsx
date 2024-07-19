@@ -10,16 +10,16 @@ import { cn } from "@/lib/utils";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useToast } from "./ui/use-toast";
 import { addWord } from "@/firebase/actions";
 import { isThisWordCorrect } from "@/googleAi/actions";
 import { useLanguage } from "@/context/LanguagesContext";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { Separator } from "@radix-ui/react-dropdown-menu";
 
 function Buttons() {
    const locale = useLocale();
+   const t = useTranslations();
    const { toast } = useToast();
    const { languages } = useLanguage();
    const [word, setWord] = useState("");
@@ -32,6 +32,7 @@ function Buttons() {
       setLoading(true);
       const result = await isThisWordCorrect(word, languages, locale);
       if (result === "true") {
+         console.log(result);
          const addWordDatabase = await addWord(word, languages, locale);
          if (addWordDatabase.success) {
             toast({
@@ -56,20 +57,20 @@ function Buttons() {
    };
 
    return (
-      <div className="flex flex-row w-10/12 md:w-9/12 lg:w-6/12 mx-auto my-2 px-2 gap-2">
+      <div className="flex flex-row w-10/12 md:w-9/12 lg:w-6/12 mx-auto my-5 px-2 gap-2">
          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
                <Button variant={"outline"} className="w-full text-white bg-gradient-to-r from-indigo-400 to-cyan-400 hover:border-white">
-                  Kelime ekle
+                  {t("buttons.addWord")}
                   <HiPencil className="ml-2 w-4 h-4" />
                </Button>
             </DialogTrigger>
             <DialogContent aria-describedby={undefined}>
                <DialogHeader>
-                  <DialogTitle>Kelime ekle</DialogTitle>
+                  <DialogTitle>{t("buttons.addWord")}</DialogTitle>
                </DialogHeader>
                <Input
-                  placeholder="Eklemek istediğiniz kelimeyi yazınız."
+                  placeholder={t("buttons.inputPlaceholder")}
                   className="h-8"
                   value={word}
                   onChange={(e) => {
@@ -83,7 +84,7 @@ function Buttons() {
                   {loading && <ImSpinner2 className="ml-2 h-4 w-4 animate-spin" />}
                   {!loading && (
                      <>
-                        Ekle
+                        {t("buttons.add")}
                         <IoMdAdd className="ml-2 h-4 w-4" />
                      </>
                   )}
@@ -91,7 +92,7 @@ function Buttons() {
             </DialogContent>
          </Dialog>
          <Button variant={"outline"} className="w-full text-white bg-gradient-to-r from-cyan-400 to-indigo-400 hover:border-white">
-            Kelime öğren
+            {t("buttons.learnWord")}
             <FaBookOpen className="ml-2 w-4 h-4" />
          </Button>
       </div>

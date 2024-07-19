@@ -17,6 +17,27 @@
    "error": {
       "error": "An unexpected error occurred"
    },
+   "buttons": {
+      "addWord": "Add Word",
+      "inputPlaceholder": "Enter the word you want to add.",
+      "add": "Add",
+      "learnWord": "Learn Word"
+   },
+   "table": {
+      "filterPlaceholder": "Filter words...",
+      "noResult": "No results found.",
+      "rowsPerPage": "Words per page",
+      "page": "Page",
+      "goFirst": "Go to first page",
+      "goPrevious": "Go to previous page",
+      "goNext": "Go to next page",
+      "goLast": "Go to last page",
+      "word": "Word",
+      "translation": "Translation",
+      "button": "Learn",
+      "showCount": "Show Count",
+      "trueCount": "True Count"
+   },
    "HomePage": {
       "title": "Merhaba Dünya!"
    }

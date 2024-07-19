@@ -3,10 +3,9 @@ import { connectApp } from "@/firebase/config";
 import { Word } from "@/types/types";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import Loading from "./Loading";
 import { DataTable } from "@/app/words/data-table";
-import { columns } from "@/app/words/columns";
 import { Skeleton } from "./ui/skeleton";
+import { columns } from "@/app/words/columns";
 
 function Progress() {
    const [words, setWords] = useState<Word[]>([]);
@@ -41,6 +40,8 @@ function Progress() {
       };
       fetchRealTimeWords();
    }, []);
+
+   console.log(words);
 
    if (loading)
       return (

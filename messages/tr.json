@@ -17,6 +17,27 @@
    "error": {
       "error": "Beklenmeyen bir hata oluştu"
    },
+   "buttons": {
+      "addWord": "Kelime ekle",
+      "inputPlaceholder": "Eklemek istediğiniz kelimeyi yazınız.",
+      "add": "Ekle",
+      "learnWord": "Kelime öğren"
+   },
+   "table": {
+      "filterPlaceholder": "Kelimleri filtrele...",
+      "noResult": "Herhangi bir sonuç bulunamadı.",
+      "rowsPerPage": "Sayfa başına kelime",
+      "page": "Sayfa",
+      "goFirst": "İlk sayfaya git",
+      "goPrevious": "Önceki sayfaya git",
+      "goNext": "Sonraki sayfaya git",
+      "goLast": "Son sayfaya git",
+      "word": "Kelime",
+      "translation": "Çevirisi",
+      "button": "Öğren",
+      "showCount": "Gösterim Sayısı",
+      "trueCount": "Doğru Sayısı"
+   },
    "HomePage": {
       "title": "Merhaba Dünya!"
    }
