@@ -12,7 +12,11 @@
       "title": "Please fill out the form below to use the word learning application.",
       "selectMainLang": "Please select your main language",
       "selectLearnLang": "Please select the language you want to learn",
-      "saveButton": "Save Selections"
+      "saveButton": "Save Selections",
+      "alertTitle": "Attention",
+      "alertDesc": "This action will delete all words in your list..!",
+      "alertCancel": "Cancel",
+      "alertConfirm": "Confirm"
    },
    "error": {
       "error": "An unexpected error occurred"

@@ -12,7 +12,11 @@
       "title": "Kelime öğrenme uygulamasını kullanmak için aşağıdaki formu doldurunuz.",
       "selectMainLang": "Lütfen ana dilinizi seçiniz",
       "selectLearnLang": "Lütfen öğrenmek istediğiniz dili seçiniz.",
-      "saveButton": "Seçimleri Kaydet"
+      "saveButton": "Seçimleri Kaydet",
+      "alertTitle": "Dikkat",
+      "alertDesc": "Bu işlem listenizdeki tüm kelimelerin silinmesine sebep olacak..!",
+      "alertCancel": "Vazgeç",
+      "alertConfirm": "Onayla"
    },
    "error": {
       "error": "Beklenmeyen bir hata oluştu"

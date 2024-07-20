@@ -16,6 +16,8 @@ import { useLanguage } from "@/context/LanguagesContext";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { deleteCollection } from "@/firebase/actions";
 
 const FormSchema = z.object({
    mainLang: z.string({
@@ -32,6 +34,7 @@ function Profile() {
    const router = useRouter();
 
    const [selectedMainLang, setSelectedMainLang] = useState("");
+   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
    const { languages, updateLanguages } = useLanguage();
 
@@ -60,10 +63,24 @@ function Profile() {
       form.setValue("mainLang", value);
    };
 
+   const handleOpenDialog = () => {
+      setIsDialogOpen(true);
+   };
+
+   const handleCloseDialog = () => {
+      setIsDialogOpen(false);
+   };
+
    async function onSubmit(data: z.infer<typeof FormSchema>) {
+      deleteCollection();
       updateLanguages(data);
       router.push("/");
    }
+
+   const handleConfirm = async () => {
+      handleCloseDialog();
+      await onSubmit(form.getValues());
+   };
 
    return (
       <>
@@ -79,7 +96,13 @@ function Profile() {
                <h1>{t("profile.title")}</h1>
                <div className="border rounded-lg">
                   <Form {...form}>
-                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 p-5 flex flex-col justify-center">
+                     <form
+                        onSubmit={(e) => {
+                           e.preventDefault();
+                           handleOpenDialog();
+                        }}
+                        className="space-y-6 p-5 flex flex-col justify-center"
+                     >
                         <FormField
                            control={form.control}
                            name="mainLang"
@@ -126,7 +149,7 @@ function Profile() {
                               </FormItem>
                            )}
                         />
-                        <Button type="submit" variant={"secondary"}>
+                        <Button type="submit" variant={"secondary"} disabled={form.getValues().mainLang === languages.mainLang && form.getValues().learnLang === languages.learnLang}>
                            {t("profile.saveButton")}
                         </Button>
                      </form>
@@ -134,6 +157,18 @@ function Profile() {
                </div>
             </div>
          </div>
+         <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <AlertDialogContent>
+               <AlertDialogHeader>
+                  <AlertDialogTitle>{t("profile.alertTitle")}</AlertDialogTitle>
+                  <AlertDialogDescription>{t("profile.alertDesc")}</AlertDialogDescription>
+               </AlertDialogHeader>
+               <AlertDialogFooter>
+                  <AlertDialogCancel onClick={handleCloseDialog}>{t("profile.alertCancel")}</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleConfirm}>{t("profile.alertConfirm")}</AlertDialogAction>
+               </AlertDialogFooter>
+            </AlertDialogContent>
+         </AlertDialog>
       </>
    );
 }

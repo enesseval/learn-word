@@ -9,10 +9,14 @@
       "de": "Deutsch"
    },
    "profile": {
-      "title": "Please fill out the form below to use the word learning application.",
-      "selectMainLang": "Please select your main language",
-      "selectLearnLang": "Please select the language you want to learn",
-      "saveButton": "Save Selections"
+      "title": "Bitte füllen Sie das folgende Formular aus, um die Wortlern-Anwendung zu nutzen.",
+      "selectMainLang": "Bitte wählen Sie Ihre Hauptsprache aus",
+      "selectLearnLang": "Bitte wählen Sie die Sprache, die Sie lernen möchten",
+      "saveButton": "Auswahlen speichern",
+      "alertTitle": "Achtung",
+      "alertDesc": "Diese Aktion wird alle Wörter in Ihrer Liste löschen..!",
+      "alertCancel": "Abbrechen",
+      "alertConfirm": "Bestätigen"
    },
    "error": {
       "error": "Ein unerwarteter Fehler ist aufgetreten"

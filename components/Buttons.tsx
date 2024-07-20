@@ -32,7 +32,6 @@ function Buttons() {
       setLoading(true);
       const result = await isThisWordCorrect(word, languages, locale);
       if (result === "true") {
-         console.log(result);
          const addWordDatabase = await addWord(word, languages, locale);
          if (addWordDatabase.success) {
             toast({

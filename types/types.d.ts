@@ -21,6 +21,7 @@ type Sentence = {
 
 export type Word = {
    learnLangWord?: string;
+   learnLangWordLowerCase?: string;
    mainLangTranslation?: string;
    showCount?: number;
    trueCount?: number;

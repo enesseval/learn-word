@@ -41,8 +41,6 @@ function Progress() {
       fetchRealTimeWords();
    }, []);
 
-   console.log(words);
-
    if (loading)
       return (
          <div className="flex flex-col space-y-3 mt-2">
