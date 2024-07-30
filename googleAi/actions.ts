@@ -10,7 +10,7 @@ export async function isThisWordCorrect(word: string, languages: Languages, loca
    const learnLang = languages.learnLang === "tr" ? "Türkçe" : languages.learnLang === "en" ? "İngilizce" : "Almanca";
    const localeLang = locale === "tr" ? "Türkçe" : locale === "en" ? "İngilizce" : "Almanca";
 
-   const prompt = `'${word}' tek tırnaklar içerisinde verdiğim kelime ${learnLang} mı ? eğer ${learnLang} ise sadece true olarak cevap döndür başında veya sonunda hiç bir şey olmasın, eğer kelime ${learnLang} değilse ${localeLang} "Üzgünüm bu kelime ${learnLang} değil" şeklinde bir hata döndür`;
+   const prompt = `'${word.toLowerCase()}' tek tırnaklar içerisinde verdiğim kelime ${learnLang} mı ? eğer ${learnLang} ise sadece true olarak cevap döndür başında veya sonunda hiç bir şey olmasın, eğer kelime ${learnLang} değilse ${localeLang} "Üzgünüm bu kelime ${learnLang} değil" şeklinde bir hata döndür`;
 
    try {
       const result = await model.generateContent(prompt);
