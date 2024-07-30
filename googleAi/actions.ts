@@ -7,10 +7,10 @@ const genAI = new GoogleGenerativeAI(apiKey);
 export async function isThisWordCorrect(word: string, languages: Languages, locale: string) {
    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-   const learnLang = languages.learnLang === "tr" ? "Türkçe" : languages.learnLang === "en" ? "İngilizce" : "Almanca";
-   const localeLang = locale === "tr" ? "Türkçe" : locale === "en" ? "İngilizce" : "Almanca";
+   const learnLang = languages.learnLang === "tr" ? "Turkish" : languages.learnLang === "en" ? "English" : "German";
+   const localeLang = locale === "tr" ? "Turkish" : locale === "en" ? "English" : "German";
 
-   const prompt = `'${word.toLowerCase()}' tek tırnaklar içerisinde verdiğim kelime ${learnLang} mı ? eğer ${learnLang} ise sadece true olarak cevap döndür başında veya sonunda hiç bir şey olmasın, eğer kelime ${learnLang} değilse ${localeLang} "Üzgünüm bu kelime ${learnLang} değil" şeklinde bir hata döndür`;
+   const prompt = `'${word.toLowerCase()}' is the word in ${learnLang}? If it is ${learnLang}, return only true with nothing at the beginning or end. If the word is not ${learnLang}, return an error in ${localeLang} saying "Sorry, this word is not ${learnLang}".`;
 
    try {
       const result = await model.generateContent(prompt);
@@ -24,9 +24,9 @@ export async function isThisWordCorrect(word: string, languages: Languages, loca
 export async function getTranslateWord(word: string, languages: Languages) {
    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-   const mainLang = languages.mainLang === "tr" ? "Türkçe" : languages.mainLang === "en" ? "İngilizce" : "Almanca";
+   const mainLang = languages.mainLang === "tr" ? "Turkish" : languages.mainLang === "en" ? "English" : "German";
 
-   const prompt = `'${word}' tek tırnaklar içinde verdiğim kelimenin ${mainLang} çevirisini ver sadece çeviriyi yaz başında yada sonunda herhangi birşey olmasın, tırnaklar içine vs. alma`;
+   const prompt = `Give the ${mainLang} translation of the word '${word}' provided in single quotes, and write only the translation with nothing at the beginning or end, without enclosing it in quotes or anything else.`;
 
    try {
       const result = await model.generateContent(prompt);
@@ -40,12 +40,11 @@ export async function getTranslateWord(word: string, languages: Languages) {
 export async function getSentencesByWord(word: string, languages: Languages, locale: string) {
    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig: { responseMimeType: "application/json" } });
 
-   const mainLang = languages.mainLang === "tr" ? "Türkçe" : languages.mainLang === "en" ? "İngilizce" : "Almanca";
-   const learnLang = languages.learnLang === "tr" ? "Türkçe" : languages.learnLang === "en" ? "İngilizce" : "Almanca";
+   const mainLang = languages.mainLang === "tr" ? "Turkish" : languages.mainLang === "en" ? "English" : "German";
+   const learnLang = languages.learnLang === "tr" ? "Turkish" : languages.learnLang === "en" ? "English" : "German";
 
-   const prompt = `'${word}' çift tırnaklar arasında verdiğim kelimeyi 10 tane farklı cümle içince kullanarak ver, ve bu cümlenin ${mainLang} çevirisini ver.bana vereceğin çıktı şu 
-   formatta olmalı, kelimeleri cümle içinde özellikle belirtmen gerekmiyor dümdüz yaz. çıktının başına yada sonuna herhangi birşey 
-   koyma, cümlelerde ve başlıklarda çift tırnak olmasın -> [{ "mainLangSentence": "${mainLang} cümle", "learnLangSentence": "${learnLang} çevirisi" },]`;
+   const prompt = `Use the word '${word}' provided in double quotes in 10 different sentences, and provide the ${mainLang} translation of these sentences. The output you give me should be in the following format, you don't need to highlight the words in the sentence, just write it plainly. Do not add anything to the beginning or end of the output, and do not include double quotes in the sentences or titles -> [{ "mainLangSentence": "${mainLang} sentence", "learnLangSentence": "${learnLang} translation" },]
+`;
 
    try {
       const result = await model.generateContent(prompt);
@@ -59,9 +58,9 @@ export async function getSentencesByWord(word: string, languages: Languages, loc
 export async function getRandomWordMainLang(languages: Languages) {
    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig: { responseMimeType: "application/json" } });
 
-   const mainLang = languages.mainLang === "tr" ? "Türkçe" : languages.mainLang === "en" ? "İngilizce" : "Almanca";
+   const mainLang = languages.mainLang === "tr" ? "Turkish" : languages.mainLang === "en" ? "English" : "German";
 
-   const prompt = `bana rastgele 35 tane ${mainLang} kelime ver bunlar fiil ve zarf da olabilir eşya vb. gibi isimler de olabilir, array içinde olsun başında yada sonunda başka komut gibi herhangi birşey olmasın`;
+   const prompt = `Give me 35 random ${mainLang} words, they can be verbs, adverbs, or nouns like objects, etc. They should be in an array without any commands or anything else at the beginning or end.`;
 
    try {
       const result = await model.generateContent(prompt);

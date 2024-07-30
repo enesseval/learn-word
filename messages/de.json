@@ -49,6 +49,13 @@
       "mainLangSentence": "Satz in der Muttersprache",
       "button": "Änderungen bestätigen"
    },
+   "wordCard": {
+      "trueCountText": "vom Wort",
+      "trueCountText2": "Mal hast du es richtig gemacht.",
+      "closeResultPageBtn": "Zum Schließen klicken",
+      "nextWordBtn": "Nächstes Wort",
+      "showResultPageBtn": "Klicken, um die Ergebnisse zu sehen"
+   },
    "HomePage": {
       "title": "Merhaba Dünya!"
    }

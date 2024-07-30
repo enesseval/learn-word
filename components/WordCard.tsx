@@ -8,6 +8,7 @@ import Loading from "./Loading";
 import { cn } from "@/lib/utils";
 import { Word } from "@/types/types";
 import { Button } from "./ui/button";
+import { useTranslations } from "next-intl";
 import { useWordCard } from "@/context/WordCardContext";
 import { useLanguage } from "@/context/LanguagesContext";
 import { getRandomWordMainLang } from "@/googleAi/actions";
@@ -15,11 +16,13 @@ import { getCombinedWeightRandomWords } from "./helpers/randomWords";
 import { getUserWords, updateShowCount, updateTrueCount } from "@/firebase/actions";
 
 function WordCard() {
+   const t = useTranslations("wordCard");
    const { languages } = useLanguage();
    const { updateWordCardStat } = useWordCard();
    const [loading, setLoading] = useState(true);
    const [wordCount, setWordCount] = useState(0);
    const [turnBack, setTurnBack] = useState(false);
+   const [resultPage, setResultPage] = useState(false);
    const [answers, setAnswers] = useState<string[][]>([]);
    const [answersClick, setAnswersClick] = useState(false);
    const [roundTrueCount, setRoundTrueCount] = useState(0);
@@ -84,11 +87,29 @@ function WordCard() {
          setAnswersClick(false);
          setWordCount(wordCount + 1);
       } else {
-         setRoundTrueCount(0);
-         updateWordCardStat(false);
+         setResultPage(true);
       }
    };
 
+   const closeResultPage = () => {
+      setRoundTrueCount(0);
+      updateWordCardStat(false);
+   };
+
+   if (resultPage) {
+      return (
+         <div className="fixed inset-0 flex flex-col items-center justify-center mx-auto">
+            <div className="aspect-square max-w-[500px] bg-slate-900 border-slate-300 w-full rounded-lg p-5 space-y-10 flex flex-col items-center justify-evenly">
+               <h2 className="text-3xl font-bold text-center">
+                  {selectedWords.length} {t("trueCountText")} {roundTrueCount} {t("trueCountText2")}
+               </h2>
+               <Button variant={"outline"} onClick={() => closeResultPage()}>
+                  {t("closeResultPageBtn")}
+               </Button>
+            </div>
+         </div>
+      );
+   }
    if (loading) {
       return (
          <div className="fixed inset-0">
@@ -120,7 +141,7 @@ function WordCard() {
                         </Button>
                      </div>
                      <h2 className="mt-8 text-2xl text-indigo-400">{selectedWords[wordCount]?.learnLangWord}</h2>
-                     <p className="text-xl mt-10 text-center p-2">{selectedWords[wordCount]?.sentences?.[random].learnLangSentence}</p>
+                     <p className="text-xl mt-10 text-center p-2 text-indigo-400">{selectedWords[wordCount]?.sentences?.[random].learnLangSentence}</p>
                      <div className="w-full grid grid-cols-2 gap-2 p-2 mt-14">
                         {answers[wordCount].map((word, index) => (
                            <Button
@@ -139,11 +160,11 @@ function WordCard() {
                      <Button variant={"outline"} disabled={!answersClick} onClick={() => nextWord()}>
                         {wordCount !== (selectedWords.length >= 10 ? 10 : selectedWords.length - 1) ? (
                            <>
-                              Sonraki kelime
+                              {t("nextWordBtn")}
                               <AiOutlineRight className="ml-2" />
                            </>
                         ) : (
-                           <>Kapatmak için tıklayın</>
+                           <>{t("showResultPageBtn")}</>
                         )}
                      </Button>
                   </div>

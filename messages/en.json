@@ -49,6 +49,13 @@
       "mainLangSentence": "Sentence in main language",
       "button": "Confirm changes"
    },
+   "wordCard": {
+      "trueCountText": "from the word",
+      "trueCountText2": "times you got it right.",
+      "closeResultPageBtn": "Click to close",
+      "nextWordBtn": "Next word",
+      "showResultPageBtn": "Click to see results"
+   },
    "HomePage": {
       "title": "Merhaba Dünya!"
    }

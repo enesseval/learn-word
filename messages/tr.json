@@ -49,6 +49,13 @@
       "mainLangSentence": "Ana dil cümlesi",
       "button": "Değişiklikleri onayla"
    },
+   "wordCard": {
+      "trueCountText": "kelimeden",
+      "trueCountText2": "tane doğru bildin.",
+      "closeResultPageBtn": "Kapatmak için tıklayın",
+      "nextWordBtn": "Sonraki kelime",
+      "showResultPageBtn": "Sonuçları görmek için tıklayın"
+   },
    "HomePage": {
       "title": "Merhaba Dünya!"
    }
