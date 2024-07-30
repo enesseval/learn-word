@@ -13,12 +13,13 @@ import {
    useReactTable,
    VisibilityState,
 } from "@tanstack/react-table";
-import { useState } from "react";
-import { DataTablePagination } from "./data-table-paginations";
 import { Input } from "@/components/ui/input";
-import { useTranslations } from "next-intl";
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { DataTablePagination } from "./data-table-paginations";
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+
+import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface DataTableProps<TData, TValue> {
    columns: ColumnDef<TData, TValue>[];

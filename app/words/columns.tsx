@@ -1,8 +1,12 @@
+"use client";
 import { ColumnDef } from "@tanstack/react-table";
 import { Word } from "../../types/types";
 import { Button } from "@/components/ui/button";
 import { FaArrowsAltV } from "react-icons/fa";
 import { useTranslations } from "next-intl";
+import React from "react";
+import { MdOutlineEdit } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 const WordHeader: React.FC<{ column: any }> = ({ column }) => {
    const t = useTranslations("table");
@@ -29,14 +33,15 @@ const TrueCount: React.FC<{ column: any }> = ({ column }) => {
    return <>{t("trueCount")}</>;
 };
 
-const LearnButton: React.FC<{ row: any }> = ({ row }) => {
+const EditWord: React.FC<{ row: any }> = ({ row }) => {
    const t = useTranslations("table");
+   const router = useRouter();
+   const data = row.original;
    return (
-      <div className="flex justify-end">
-         <Button variant="outline" className="p-2">
-            {t("button")}
-         </Button>
-      </div>
+      <Button onClick={() => router.push(`/edit/${data.id}`)} variant={"ghost"}>
+         {t("button")}
+         <MdOutlineEdit className="w-4 h-4 ml-2" />
+      </Button>
    );
 };
 
@@ -62,7 +67,7 @@ export const columns: ColumnDef<Word>[] = [
       header: TrueCount,
    },
    {
-      id: "button",
-      cell: LearnButton,
+      id: "actions",
+      cell: EditWord,
    },
 ];

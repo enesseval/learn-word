@@ -38,9 +38,16 @@
       "goLast": "Son sayfaya git",
       "word": "Kelime",
       "translation": "Çevirisi",
-      "button": "Öğren",
+      "button": "Düzenle",
       "showCount": "Gösterim Sayısı",
       "trueCount": "Doğru Sayısı"
+   },
+   "editWord": {
+      "word": "Kelime",
+      "translate": "Çeviri",
+      "learnLangSentence": "Öğrenilen dil cümlesi",
+      "mainLangSentence": "Ana dil cümlesi",
+      "button": "Değişiklikleri onayla"
    },
    "HomePage": {
       "title": "Merhaba Dünya!"

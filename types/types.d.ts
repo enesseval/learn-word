@@ -14,17 +14,25 @@ export interface LanguageContextType {
    loading: boolean;
 }
 
+export interface WordCardContextType {
+   openWordCard: boolean;
+   updateWordCardStat: (newVal: boolean) => void;
+   word?: Word;
+   settingWord: (word: Word) => void;
+}
+
 type Sentence = {
    mainLangSentence: string;
    learnLangSentence: string;
 };
 
 export type Word = {
+   id: string;
    learnLangWord?: string;
    learnLangWordLowerCase?: string;
    mainLangTranslation?: string;
    showCount?: number;
    trueCount?: number;
-   addedDate?: Date;
+   addedDate?: string;
    sentences?: Sentence[];
 };

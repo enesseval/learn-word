@@ -17,23 +17,23 @@ export async function isThisWordCorrect(word: string, languages: Languages, loca
       const response = result.response.text().trim();
       return response;
    } catch (error) {
-      console.log("Something went wrong: ", error);
+      console.log("isThisWordCorrect---Something went wrong: ", error);
    }
 }
 
 export async function getTranslateWord(word: string, languages: Languages) {
    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-   const mainLang = languages.mainLang === "tr" ? "Türkçe" : languages.learnLang === "en" ? "İngilizce" : "Almanca";
+   const mainLang = languages.mainLang === "tr" ? "Türkçe" : languages.mainLang === "en" ? "İngilizce" : "Almanca";
 
-   const prompt = `'${word}' tek tırnaklar içinde verdiğim kelimenin ${mainLang} çevirisini ver sadece çeviriyi yaz başında yada sonunda herhangi birşey olmasın`;
+   const prompt = `'${word}' tek tırnaklar içinde verdiğim kelimenin ${mainLang} çevirisini ver sadece çeviriyi yaz başında yada sonunda herhangi birşey olmasın, tırnaklar içine vs. alma`;
 
    try {
       const result = await model.generateContent(prompt);
       const response = result.response.text().trim();
       return response;
    } catch (error) {
-      console.log("Something went wrong: ", error);
+      console.log("getTranslateWords---Something went wrong: ", error);
    }
 }
 
@@ -45,13 +45,29 @@ export async function getSentencesByWord(word: string, languages: Languages, loc
 
    const prompt = `'${word}' çift tırnaklar arasında verdiğim kelimeyi 10 tane farklı cümle içince kullanarak ver, ve bu cümlenin ${mainLang} çevirisini ver.bana vereceğin çıktı şu 
    formatta olmalı, kelimeleri cümle içinde özellikle belirtmen gerekmiyor dümdüz yaz. çıktının başına yada sonuna herhangi birşey 
-   koyma -> [{ mainLangSentence:"${mainLang} cümle", learnLangSentence:"${learnLang} çevirisi" },]`;
+   koyma, cümlelerde ve başlıklarda çift tırnak olmasın -> [{ "mainLangSentence": "${mainLang} cümle", "learnLangSentence": "${learnLang} çevirisi" },]`;
 
    try {
       const result = await model.generateContent(prompt);
       const res = result.response.text();
       return JSON.parse(res);
    } catch (error) {
-      console.log("Something went wrong: ", error);
+      console.log("getSentencesWord---Something went wrong: ", error);
+   }
+}
+
+export async function getRandomWordMainLang(languages: Languages) {
+   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig: { responseMimeType: "application/json" } });
+
+   const mainLang = languages.mainLang === "tr" ? "Türkçe" : languages.mainLang === "en" ? "İngilizce" : "Almanca";
+
+   const prompt = `bana rastgele 35 tane ${mainLang} kelime ver bunlar fiil ve zarf da olabilir eşya vb. gibi isimler de olabilir, array içinde olsun başında yada sonunda başka komut gibi herhangi birşey olmasın`;
+
+   try {
+      const result = await model.generateContent(prompt);
+      const res = result.response.text();
+      return JSON.parse(res);
+   } catch (error) {
+      console.log("getRandomWord---Something went wrong: ", error);
    }
 }

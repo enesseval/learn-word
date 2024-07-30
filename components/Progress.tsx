@@ -1,8 +1,8 @@
 import { getUserId } from "@/firebase/actions";
 import { connectApp } from "@/firebase/config";
 import { Word } from "@/types/types";
-import { collection, getFirestore, onSnapshot } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import { collection, DocumentData, getDocs, getFirestore, limit, onSnapshot, orderBy, query, QueryDocumentSnapshot, startAfter } from "firebase/firestore";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { DataTable } from "@/app/words/data-table";
 import { Skeleton } from "./ui/skeleton";
 import { columns } from "@/app/words/columns";
@@ -10,6 +10,9 @@ import { columns } from "@/app/words/columns";
 function Progress() {
    const [words, setWords] = useState<Word[]>([]);
    const [loading, setLoading] = useState(false);
+   const [lastDoc, setLastDoc] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);
+   const [hasMore, setHasMore] = useState(true);
+   const observerRef = useRef(null);
 
    useEffect(() => {
       const fetchRealTimeWords = async () => {
@@ -22,6 +25,7 @@ function Progress() {
                const wordsArray: Word[] = snapshot.docs.map((doc) => {
                   const data = doc.data();
                   return {
+                     id: data.id,
                      learnLangWord: data.learnLangWord,
                      mainLangTranslation: data.mainLangTranslation,
                      showCount: data.showCount,

@@ -9,6 +9,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { LanguageProvider } from "@/context/LanguagesContext";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { WordCardProvider } from "@/context/WordCardContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,17 +30,19 @@ export default async function RootLayout({
    return (
       <ClerkProvider>
          <LanguageProvider>
-            <html lang={locale} suppressHydrationWarning={true}>
-               <body className={inter.className}>
-                  <NextIntlClientProvider messages={messages}>
-                     <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-                        <Toaster />
-                        <NextTopLoader />
-                        {children}
-                     </ThemeProvider>
-                  </NextIntlClientProvider>
-               </body>
-            </html>
+            <WordCardProvider>
+               <html lang={locale} suppressHydrationWarning={true}>
+                  <body className={inter.className}>
+                     <NextIntlClientProvider messages={messages}>
+                        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+                           <Toaster />
+                           <NextTopLoader />
+                           {children}
+                        </ThemeProvider>
+                     </NextIntlClientProvider>
+                  </body>
+               </html>
+            </WordCardProvider>
          </LanguageProvider>
       </ClerkProvider>
    );

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { HiPencil } from "react-icons/hi";
 import { ImSpinner2 } from "react-icons/im";
@@ -10,12 +10,13 @@ import { cn } from "@/lib/utils";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
-import { useLocale, useTranslations } from "next-intl";
 import { useToast } from "./ui/use-toast";
-import { addWord } from "@/firebase/actions";
+import { addWord, getUserWords } from "@/firebase/actions";
 import { isThisWordCorrect } from "@/googleAi/actions";
+import { useLocale, useTranslations } from "next-intl";
 import { useLanguage } from "@/context/LanguagesContext";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { useWordCard } from "@/context/WordCardContext";
 
 function Buttons() {
    const locale = useLocale();
@@ -25,8 +26,18 @@ function Buttons() {
    const [word, setWord] = useState("");
    const [addBtn, setAddBtn] = useState(false);
    const [btnValue, setBtnValue] = useState("");
+   const { updateWordCardStat } = useWordCard();
    const [loading, setLoading] = useState(false);
    const [dialogOpen, setDialogOpen] = useState(false);
+   const [allWordsCount, setAllWordsCount] = useState(0);
+
+   useEffect(() => {
+      const fetchWords = async () => {
+         const fetchedWords = await getUserWords();
+         setAllWordsCount(fetchedWords.length);
+      };
+      fetchWords();
+   }, []);
 
    const addWordHandle = async () => {
       setLoading(true);
@@ -90,7 +101,7 @@ function Buttons() {
                </Button>
             </DialogContent>
          </Dialog>
-         <Button variant={"outline"} className="w-full text-white bg-gradient-to-r from-cyan-400 to-indigo-400 hover:border-white">
+         <Button onClick={() => updateWordCardStat(true)} variant={"outline"} className="w-full text-white bg-gradient-to-r from-cyan-400 to-indigo-400 hover:border-white">
             {t("buttons.learnWord")}
             <FaBookOpen className="ml-2 w-4 h-4" />
          </Button>

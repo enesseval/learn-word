@@ -38,9 +38,16 @@
       "goLast": "Zur letzten Seite gehen",
       "word": "Wort",
       "translation": "Übersetzung",
-      "button": "Lernen",
+      "button": "Bearbeiten",
       "showCount": "Anzeigefrequenz",
       "trueCount": "Anzahl der Richtigen"
+   },
+   "editWord": {
+      "word": "Wort",
+      "translate": "Übersetzung",
+      "learnLangSentence": "Satz in der Lernsprache",
+      "mainLangSentence": "Satz in der Muttersprache",
+      "button": "Änderungen bestätigen"
    },
    "HomePage": {
       "title": "Merhaba Dünya!"

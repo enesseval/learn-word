@@ -11,13 +11,13 @@ import React, { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { deleteCollection } from "@/firebase/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLanguage } from "@/context/LanguagesContext";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { deleteCollection } from "@/firebase/actions";
 
 const FormSchema = z.object({
    mainLang: z.string({
