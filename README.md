@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Kelime Öğrenme Uygulaması
 
-## Getting Started
+---
 
-First, run the development server:
+Kelime Öğrenme Uygulaması, belirli diller arasında öğrenmek istediğiniz dili ve anadil seçimini yaptıktan sonra, öğrenmek istediğiniz dilde kelimeler ekleyebileceğiniz ve bu kelimeleri veritabanına kaydedebileceğiniz bir uygulamadır. Uygulama, Gemini AI kullanarak eklediğiniz kelimenin anadilinizdeki çevirisini ve örnek 10 cümleyi otomatik olarak oluşturur ve veritabanına kaydeder.
+
+## Özellikler
+
+-  **Dil Seçimi:** Öğrenmek istediğiniz dili ve anadilinizi seçebilirsiniz.
+-  **Kelime Ekleme:** Öğrenmek istediğiniz dilde kelimeler ekleyebilir ve bunları veritabanına kaydedebilirsiniz.
+-  **Çeviri ve Örnek Cümleler:** Gemini AI kullanarak eklediğiniz kelimenin anadilinizdeki çevirisini ve örnek 10 cümleyi otomatik olarak oluşturur.
+-  **Öğrenme Algoritması:** Kelimeleri belirli bir algoritma ile seçerek öğrenmenizi sağlar.
+-  **Kullanıcı Dostu Arayüz:** Kolay ve kullanıcı dostu bir arayüz ile kelime öğrenme sürecinizi yönetebilirsiniz.
+
+## Kurulum
+
+Projenin yerel makinenizde çalışması için aşağıdaki adımları izleyin.
+
+### Gereksinimler
+
+-  Node.js (>=14.0.0)
+-  npm veya yarn paket yöneticisi
+
+### Adımlar
+
+1. Depoyu klonlayın
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/enesseval/learn-word
+cd learn-word
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Bağımlılıkları yükleyin
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+# veya
+yarn install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+3. Gerekli ortam değişkenlerini '.env' dosyasına ekleyin.
