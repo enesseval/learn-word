@@ -124,10 +124,11 @@ function WordCard() {
                      <div className="w-full grid grid-cols-2 gap-2 p-2 mt-14">
                         {answers[wordCount].map((word, index) => (
                            <Button
+                              disabled={answersClick}
                               key={index}
                               variant={"outline"}
                               onClick={() => checkAnswer(word)}
-                              className={cn(answersClick && `bg-${word === selectedWords[wordCount]?.mainLangTranslation ? "green" : "red"}-500`)}
+                              style={{ backgroundColor: !answersClick ? "" : word === selectedWords[wordCount]?.mainLangTranslation ? "green" : "red" }}
                            >
                               {word}
                            </Button>
