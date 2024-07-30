@@ -80,7 +80,7 @@ function Edit() {
       <>
          <Navbar />
          <div className="w-full mx-auto flex flex-col items-center justify-center mt-5 space-y-5 p-3">
-            <div className="flex flex-col md:flex-row justify-start w-full max-w-[4 50px]">
+            <div className="flex flex-col md:flex-row justify-start w-full max-w-[450px]">
                <h2 className="text-2xl font-bold mr-5 mt-1 min-w-[150px]">{t("word")}:</h2>
                <Input style={{ borderColor: errors.learnLangWord ? "red" : "inherit" }} name="learnLangWord" value={word?.learnLangWord} onChange={handleChange} />
             </div>
