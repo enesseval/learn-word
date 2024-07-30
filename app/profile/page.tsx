@@ -11,7 +11,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { deleteCollection } from "@/firebase/actions";
+import { deleteCollection, getUserWords } from "@/firebase/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLanguage } from "@/context/LanguagesContext";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -34,12 +34,18 @@ function Profile() {
    const router = useRouter();
 
    const [selectedMainLang, setSelectedMainLang] = useState("");
+   const [wordsCount, setWordsCount] = useState(0);
    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
    const { languages, updateLanguages } = useLanguage();
 
    useEffect(() => {
       if (languages.mainLang) setSelectedMainLang(languages.mainLang);
+      const fetchWordsCount = async () => {
+         const word = await getUserWords();
+         setWordsCount(word.length);
+      };
+      fetchWordsCount();
    }, [languages.mainLang, languages, router]);
 
    const langueges = [
@@ -64,7 +70,10 @@ function Profile() {
    };
 
    const handleOpenDialog = () => {
-      setIsDialogOpen(true);
+      if (wordsCount !== 0) setIsDialogOpen(true);
+      else {
+         handleConfirm();
+      }
    };
 
    const handleCloseDialog = () => {
